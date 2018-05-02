@@ -35,6 +35,10 @@ namespace lab7
             b = Convert.ToDouble(BBox.Text);
             h = Convert.ToDouble(StepBox.Text);
 
+	        chart1.Series[0].Points.Clear();
+	        chart1.Series[1].Points.Clear();
+	        chart1.Series[2].Points.Clear();
+
             double n = (b - a) / h;
 
             double[] X = new double[Convert.ToInt32(n)];
@@ -46,12 +50,13 @@ namespace lab7
 
             double[] Xdp = new double[Convert.ToInt32(n)];
             double[] XY = new double[Convert.ToInt32(n)];
-            double[] Ydp = new double[Convert.ToInt32(n + 1)];
+            double[] Ydp = new double[Convert.ToInt32(n)];
             double[] Yme = new double[Convert.ToInt32(n + 1)];
 
             double[] Ytn = new double[Convert.ToInt32(n + 1)];
 
             Yrk[0] = Yme[0] = Ytn[0] = 3.0; X[0]=0.0;
+
             dataGridView1.Rows.Clear();
 
             //calculate
@@ -72,16 +77,18 @@ namespace lab7
                 Ydp[i] = Yme[i] + (h / 2.0) * Func(X[i], Yme[i]);
                 XY[i] = Func(Xdp[i], Ydp[i]);
                 Yme[i+1] = Yme[i] + ( h * XY[i]);
-                //========================================================================//
+                //=======================================================================//
 
                 //Tocn
                 Ytn[i] = Tocn(X[i]);
                 //======================================================================//
 
                 dataGridView1.Rows.Add(i+1, Yrk[i], Yme[i], Ytn[i]);
-            }
 
-            
+                chart1.Series[0].Points.AddXY(i, Yrk[i]);
+                chart1.Series[1].Points.AddXY(i, Yme[i]);
+                chart1.Series[2].Points.AddXY(i, Ytn[i]);
+            }
         }
     }
 }

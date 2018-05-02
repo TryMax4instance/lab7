@@ -28,7 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Ind = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Yrk = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Yelr = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tocn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ABox = new System.Windows.Forms.TextBox();
             this.BBox = new System.Windows.Forms.TextBox();
             this.StepBox = new System.Windows.Forms.TextBox();
@@ -36,11 +45,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.Ind = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Yrk = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Yelr = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Tocn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -55,8 +62,38 @@
             this.dataGridView1.Location = new System.Drawing.Point(12, 12);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(523, 210);
+            this.dataGridView1.Size = new System.Drawing.Size(536, 210);
             this.dataGridView1.TabIndex = 0;
+            // 
+            // Ind
+            // 
+            this.Ind.HeaderText = "Индекс";
+            this.Ind.Name = "Ind";
+            this.Ind.ReadOnly = true;
+            // 
+            // Yrk
+            // 
+            this.Yrk.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.Yrk.HeaderText = "Метод Рунге-Кутта";
+            this.Yrk.Name = "Yrk";
+            this.Yrk.ReadOnly = true;
+            this.Yrk.Width = 116;
+            // 
+            // Yelr
+            // 
+            this.Yelr.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.Yelr.HeaderText = "Модифицированный метод Эйлера";
+            this.Yelr.Name = "Yelr";
+            this.Yelr.ReadOnly = true;
+            this.Yelr.Width = 157;
+            // 
+            // Tocn
+            // 
+            this.Tocn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.Tocn.HeaderText = "Точное решение";
+            this.Tocn.Name = "Tocn";
+            this.Tocn.ReadOnly = true;
+            this.Tocn.Width = 105;
             // 
             // ABox
             // 
@@ -81,9 +118,9 @@
             // 
             // RKbut
             // 
-            this.RKbut.Location = new System.Drawing.Point(82, 301);
+            this.RKbut.Location = new System.Drawing.Point(100, 297);
             this.RKbut.Name = "RKbut";
-            this.RKbut.Size = new System.Drawing.Size(100, 33);
+            this.RKbut.Size = new System.Drawing.Size(139, 42);
             this.RKbut.TabIndex = 4;
             this.RKbut.Text = "Calc";
             this.RKbut.UseVisualStyleBackColor = true;
@@ -116,41 +153,39 @@
             this.label3.TabIndex = 7;
             this.label3.Text = "Step";
             // 
-            // Ind
+            // chart1
             // 
-            this.Ind.HeaderText = "Индекс";
-            this.Ind.Name = "Ind";
-            this.Ind.ReadOnly = true;
-            // 
-            // Yrk
-            // 
-            this.Yrk.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.Yrk.HeaderText = "Метод Рунге-Кутта";
-            this.Yrk.Name = "Yrk";
-            this.Yrk.ReadOnly = true;
-            this.Yrk.Width = 116;
-            // 
-            // Yelr
-            // 
-            this.Yelr.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.Yelr.HeaderText = "Модифицированный метод Эйлера";
-            this.Yelr.Name = "Yelr";
-            this.Yelr.ReadOnly = true;
-            this.Yelr.Width = 157;
-            // 
-            // Tocn
-            // 
-            this.Tocn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.Tocn.HeaderText = "Точное решение";
-            this.Tocn.Name = "Tocn";
-            this.Tocn.ReadOnly = true;
-            this.Tocn.Width = 105;
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(554, 12);
+            this.chart1.Name = "chart1";
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Legend = "Legend1";
+            series1.Name = "Рунге-Кутта";
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.Legend = "Legend1";
+            series2.Name = "Эйлер";
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series3.Legend = "Legend1";
+            series3.Name = "Точное";
+            this.chart1.Series.Add(series1);
+            this.chart1.Series.Add(series2);
+            this.chart1.Series.Add(series3);
+            this.chart1.Size = new System.Drawing.Size(549, 529);
+            this.chart1.TabIndex = 9;
+            this.chart1.Text = "chart1";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1115, 555);
+            this.ClientSize = new System.Drawing.Size(1115, 553);
+            this.Controls.Add(this.chart1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -162,6 +197,7 @@
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -181,6 +217,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Yrk;
         private System.Windows.Forms.DataGridViewTextBoxColumn Yelr;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tocn;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
     }
 }
 
